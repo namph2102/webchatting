@@ -138,7 +138,6 @@ const ChatInput: FC<ChatInputProps> = ({ mutationQuery, loading }) => {
           onEmojiSelect={handdleSelect}
         />
       </div>
-      <VoiceSpeed />
     </section>
   );
 };

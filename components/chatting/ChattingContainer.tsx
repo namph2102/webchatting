@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useRef } from 'react';
 import { useMutation } from 'react-query';
 import ChatInput from './ChatInput';
@@ -55,6 +54,7 @@ const ChattingContainer = () => {
         const { value, done: doneReading } = await render.read();
         done = doneReading;
         const chuck = decoder.decode(value);
+        console.log(chuck);
 
         if (chuck.includes(':')) {
           reply += ':<br/>';

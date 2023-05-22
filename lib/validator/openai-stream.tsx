@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   createParser,
   ParsedEvent,
@@ -62,9 +63,9 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             const queue = encoder.encode(text);
             controller.enqueue(queue);
             counter++;
-          } catch (e) {
+          } catch (e: any) {
             // maybe parse error
-            controller.error(e);
+            controller.error(e.message);
           }
         }
       }

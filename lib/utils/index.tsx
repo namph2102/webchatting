@@ -12,7 +12,7 @@ export function ScroolToBottom(element: HTMLElement, time: number = 1000) {
   }
   const idTimeout = setTimeout(() => {
     element.scrollTo(0, element.scrollHeight);
-    // element.scrollTop = element.scrollHeight + 80;
+
     clearTimeout(idTimeout);
   }, time);
 }

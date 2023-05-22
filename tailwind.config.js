@@ -1,5 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors');
+delete colors['lightBlue'];
+delete colors['warmGray'];
+delete colors['trueGray'];
+delete colors['coolGray'];
+delete colors['blueGray'];
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -36,6 +41,7 @@ module.exports = {
 
     extend: {},
     colors: {
+      colors,
       transparent: 'transparent',
       current: 'currentColor',
       main: '#4EAC6D',
@@ -46,7 +52,6 @@ module.exports = {
       bg: '#2A2B2E',
       darklight: '#262626',
       white: '#adb5bd',
-      colors,
     },
   },
   plugins: [],
