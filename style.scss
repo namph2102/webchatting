@@ -1,0 +1,14 @@
+.h2{
+    overflow: hidden;
+    scroll-behavior: smooth;
+    background-color: rgb(87 83 78 /0.6);;
+}
+::-webkit-scrollbar{
+    width: 2px;
+    background-color: #2E2E2E;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #2E2E2E;
+}::-webkit-scrollbar-track{
+    background-color: #2E2E2E;
+}
