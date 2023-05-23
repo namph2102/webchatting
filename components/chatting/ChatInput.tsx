@@ -58,7 +58,7 @@ const ChatInput: FC<ChatInputProps> = ({ mutationQuery, loading }) => {
     };
   }, []);
   return (
-    <section className="absolute h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-colors-slate-600">
+    <section className="absolute h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-slate-600">
       <div className="flex justify-between gap-4 items-center h-full">
         <div className="min-w-[80px] flex justify-around items-center">
           <Tooltip

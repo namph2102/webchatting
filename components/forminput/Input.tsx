@@ -25,7 +25,7 @@ const InputElement: FC<InputElementprops> = ({
     <div className="sm:w-[350px] w-full relative">
       <label
         htmlFor={name}
-        className="block capitalize text-sm mb-1 font-semibold text-colors-slate-700 dark:text-[#fff] border-none outline-none"
+        className="block capitalize text-sm mb-1 font-semibold text-slate-700 dark:text-[#fff] border-none outline-none"
       >
         {title}:
       </label>
@@ -34,8 +34,8 @@ const InputElement: FC<InputElementprops> = ({
         id={name}
         name={name}
         className={cn(
-          ' w-full border border-colors-gray-400 outline-none  py-2 px-3 text-colors-slate-900 text-sm rounded-lg',
-          isShowError && error ? 'border border-colors-red-500' : ''
+          ' w-full border border-gray-400 outline-none  py-2 px-3 text-slate-900 text-sm rounded-lg',
+          isShowError && error ? 'border border-red-500' : ''
         )}
         placeholder={`Nhập ${title}`}
         value={value}
@@ -62,7 +62,7 @@ const InputElement: FC<InputElementprops> = ({
         </Tooltip>
       )}
 
-      <p className="text-colors-red-500 mt-1 min-h-[14px] text-xs font-semibold ">
+      <p className="text-red-500 mt-1 min-h-[14px] text-xs font-semibold ">
         {isShowError && error && (
           <>
             <span className="capitalize"> {title} </span> <span> {error}</span>

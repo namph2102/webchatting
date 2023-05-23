@@ -27,7 +27,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({}) => {
             <div
               className={cn(
                 'absolute bottom-0 left-7  w-2.5 h-2.5  border-white border-[1px]  rounded-full',
-                active ? ' bg-status-online' : 'bg-colors-red-600'
+                active ? ' bg-status-online' : 'bg-red-600'
               )}
             ></div>
           </div>

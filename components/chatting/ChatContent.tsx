@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils';
 import { componentsProps } from '@/styles';
 import { Tooltip } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { BiCheckDouble } from 'react-icons/bi';
-
+import hljs from 'highlight.js';
 export interface ChatContentProps {
   id: string;
   isUser: boolean;
@@ -13,9 +13,10 @@ export interface ChatContentProps {
   isSee?: boolean;
 }
 const ChatContent: FC<ChatContentProps> = (props) => {
-  console.log('re-render chatting');
-  const classname =
-    'w-[fit-content] px-3 py-2  rounded-lg font-medium text-[0.92rem]';
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
+  const classname = 'w-[fit-content] rounded-lg font-medium pb-2';
   return (
     <article
       className={cn(
@@ -33,10 +34,12 @@ const ChatContent: FC<ChatContentProps> = (props) => {
 
       <div className="chat_item-user flex flex-col gap-2">
         <div className={cn(classname, props.isUser ? 'bg-main/20' : 'bg-menu')}>
-          <pre
-            className=" whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ __html: props.comment }}
-          />
+          <pre className="whitespace-pre-wrap ">
+            <code
+              dangerouslySetInnerHTML={{ __html: props.comment }}
+              className="javascript"
+            />
+          </pre>
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">
             {props.isSee && (

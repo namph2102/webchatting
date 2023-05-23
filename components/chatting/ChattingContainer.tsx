@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useReducer } from 'react';
+import React, { useState, useRef, useReducer, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
@@ -7,6 +7,7 @@ import ChatContent, { ChatContentProps } from './ChatContent';
 import { messageType } from './chat.type';
 import { nanoid } from 'nanoid';
 import { ScroolToBottom, ToastMessage } from '@/lib/utils';
+import hljs from 'highlight.js';
 import {
   CommentReducer,
   handleAddComment,
@@ -19,7 +20,11 @@ const ChattingContainer = () => {
   const [isLoadding, setIsLoadding] = useState<boolean>(false);
   const boxChatContentRef = useRef<HTMLElement>(null);
   const contentSlideAnimation = useRef<HTMLDivElement | null>(null);
-
+  const controller = new AbortController();
+  const signal = controller.signal;
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
   const mutation = useMutation({
     mutationFn: async (message: messageType) => {
       // add comment
@@ -36,12 +41,20 @@ const ChattingContainer = () => {
       if (boxChatContentRef.current) {
         ScroolToBottom(boxChatContentRef.current, 100);
       }
+
+      const idItemout = setTimeout(() => {
+        controller.abort();
+        clearTimeout(idItemout);
+      }, 30000);
       const resposive = await fetch('/api/message', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [message] }),
+        signal,
       });
-
+      if (resposive.body) {
+        clearTimeout(idItemout);
+      }
       return resposive.body;
     },
     onSuccess: async (stream) => {
@@ -59,9 +72,13 @@ const ChattingContainer = () => {
         done = doneReading;
         reply += decoder.decode(value);
         if (contentSlideAnimation.current) {
-          contentSlideAnimation.current.innerHTML = `<pre class="bg-main/30 p-4 rounded-xl whitespace-pre-wrap ">
-          ${reply}
-          </pre>`;
+          let html = hljs.highlight(reply, {
+            language: 'javascript',
+          }).value;
+
+          contentSlideAnimation.current.innerHTML = `<pre class="bg-[#444] javascript p-4 rounded-xl whitespace-pre-wrap ">
+           <code class="javascript"> ${html}</code>
+            </pre>`;
           if (boxChatContentRef.current) {
             reply.length % 10 == 0 &&
               ScroolToBottom(boxChatContentRef.current, 10);
@@ -98,7 +115,7 @@ const ChattingContainer = () => {
         handleAddComment({
           id: nanoid(),
           isUser: false,
-          comment: 'Xin lỗi bạn tôi đã không hoàn thành được nhiệm vụ rùi!',
+          comment: 'Xin lỗi bạn! Có lẽ tôi đói rồi bạn cho tôi nghỉ ngơi với!',
           time: getTime(),
           isSee: true,
         })

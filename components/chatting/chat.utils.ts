@@ -10,7 +10,7 @@ export const handleCoverComment = (str: string) => {
         if (index == 0 || index == list.length - 1) {
           return item.trim();
         }
-        return `<code class="block bg-colors-black pl-4 py-3 my-0.5 rounded-lg">  ${item.trim()}</code>
+        return `<code class="javascript">  ${item.trim()}</code>
   `;
       })
       .join('');

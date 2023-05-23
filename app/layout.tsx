@@ -1,5 +1,6 @@
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
+
 export default function RootLayout({
   children,
 }: {
@@ -8,7 +9,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className="bg-bg text-white ">
-        {children}
+        <div className="main"> {children}</div>
+
         <Toaster
           position="top-right"
           reverseOrder={false}

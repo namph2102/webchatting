@@ -99,11 +99,9 @@ const Login = () => {
             </div>
           </div>
         </article>
-        <article className="lg:basis-3/4 basis-full flex flex-col items-center justify-center bg-colors-white/90 rounded-xl py-6 px-2">
+        <article className="lg:basis-3/4 basis-full flex flex-col items-center justify-center bg-white/90 rounded-xl py-6 px-2">
           <div className="text-center mb-6">
-            <h2 className="text-colors-black font-bold text-3xl">
-              Đăng Kí Tài Khoản
-            </h2>
+            <h2 className="text-black font-bold text-3xl">Đăng Kí Tài Khoản</h2>
             <p className="text-sm">
               Tạo tài khoản miễn phí của bạn ngay đây thôi.
             </p>
@@ -151,19 +149,19 @@ const Login = () => {
             <div className="grid grid-cols-3 gap-4">
               <button
                 type="button"
-                className="py-4 rounded-xl bg-colors-slate-200 hover:bg-colors-slate-400 flex justify-center"
+                className="py-4 rounded-xl bg-slate-200 hover:bg-slate-400 flex justify-center"
               >
                 <BsFacebook fill="#560BAD" className="sm:text-base text-sm" />
               </button>
               <button
                 type="button"
-                className="py-4 rounded-xl bg-colors-slate-200 hover:bg-colors-slate-400 flex justify-center"
+                className="py-4 rounded-xl bg-slate-200 hover:bg-slate-400 flex justify-center"
               >
                 <BsGoogle fill="#EF476F" className="sm:text-base text-sm" />
               </button>
               <button
                 type="button"
-                className="py-4 rounded-xl bg-colors-slate-200 hover:bg-colors-slate-400 flex justify-center"
+                className="py-4 rounded-xl bg-slate-200 hover:bg-slate-400 flex justify-center"
               >
                 <BsGithub fill="#000" className="sm:text-base text-sm" />
               </button>
