@@ -4,9 +4,31 @@ import SideBar from '@/components/sidebar';
 import Header from '@/components/header';
 import ChatProvider from './chat/ChatProvider';
 
+import { Metadata } from 'next';
+import Head from 'next/head';
+import { createContext } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Zecky - ứng dụng chatting',
+  description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
+};
+
 export default function Home() {
   return (
     <div className="container mx-auto">
+      <Head>
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="article" />
+        <meta
+          name="description"
+          content="Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !"
+        />
+        <meta
+          name="keywords"
+          content="zecky chatting,zecky đăng nhập,zecky đăng ký, webchat zecky,zecky vietname, ứng dụng chat"
+        />
+      </Head>
       <ChatProvider>
         <main className="flex w-full min-h-screen">
           <Header />

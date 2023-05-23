@@ -18,7 +18,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({}) => {
         <div className="flex gap-5 items-center">
           <div className="relative ">
             <Image
-              src="/images/avata.jpg"
+              src="/images/botai.png"
               alt="avata"
               height={40}
               width={40}

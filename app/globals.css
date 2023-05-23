@@ -1,25 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 html {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
-body{
-scroll-behavior: smooth;
-overflow: hidden;
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
-::-webkit-scrollbar{
-    width: 3px;
-    background-color: #2E2E2E;
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: #2e2e2e;
 }
-::-webkit-scrollbar-thumb{  
-    background-color: #111;
+::-webkit-scrollbar-thumb {
+  background-color: #111;
 }
-::-webkit-scrollbar-track{
-    background-color: #262626;
+::-webkit-scrollbar-track {
+  background-color: #262626;
 }
 
-.skeleton--effect{
-  background-color: rgb(87 83 78 /0.6);;
+.skeleton--effect {
+  background-color: rgb(87 83 78 /0.6);
+}
+.typing-demo {
+  animation: typing 2s steps(22), blink 0.5s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 1em;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }

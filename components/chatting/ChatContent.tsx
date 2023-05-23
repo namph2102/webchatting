@@ -32,8 +32,11 @@ const ChatContent: FC<ChatContentProps> = (props) => {
       />
 
       <div className="chat_item-user flex flex-col gap-2">
-        <p className={cn(classname, props.isUser ? 'bg-main/20' : 'bg-menu')}>
-          <span dangerouslySetInnerHTML={{ __html: props.comment }} />
+        <div className={cn(classname, props.isUser ? 'bg-main/20' : 'bg-menu')}>
+          <pre
+            className=" whitespace-pre-wrap"
+            dangerouslySetInnerHTML={{ __html: props.comment }}
+          />
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">
             {props.isSee && (
@@ -50,7 +53,7 @@ const ChatContent: FC<ChatContentProps> = (props) => {
             )}
             <span>{props.time}</span>
           </small>
-        </p>
+        </div>
       </div>
     </article>
   );

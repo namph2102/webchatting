@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useReducer } from 'react';
 import { useMutation } from 'react-query';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
@@ -7,28 +7,32 @@ import ChatContent, { ChatContentProps } from './ChatContent';
 import { messageType } from './chat.type';
 import { nanoid } from 'nanoid';
 import { ScroolToBottom, ToastMessage } from '@/lib/utils';
+import {
+  CommentReducer,
+  handleAddComment,
+  handleCoverComment,
+} from './chat.utils';
+const initState: ChatContentProps[] = [];
 
 const ChattingContainer = () => {
+  const [listUserComments, dispatch] = useReducer(CommentReducer, initState);
+  const [isLoadding, setIsLoadding] = useState<boolean>(false);
   const boxChatContentRef = useRef<HTMLElement>(null);
   const contentSlideAnimation = useRef<HTMLDivElement | null>(null);
-  const [listUserComments, setListUserComments] = useState<ChatContentProps[]>(
-    []
-  );
 
   const mutation = useMutation({
-    mutationKey: ['chat'],
     mutationFn: async (message: messageType) => {
-      setListUserComments((pre) => [
-        ...pre,
-        {
+      // add comment
+      dispatch(
+        handleAddComment({
           id: nanoid(),
           isUser: true,
-          comment: message.text,
+          comment: message.text.trim(),
           time: getTime(),
           isSee: true,
-        },
-      ]);
-
+        })
+      );
+      setIsLoadding(true);
       if (boxChatContentRef.current) {
         ScroolToBottom(boxChatContentRef.current, 100);
       }
@@ -53,38 +57,30 @@ const ChattingContainer = () => {
       while (!done) {
         const { value, done: doneReading } = await render.read();
         done = doneReading;
-        const chuck = decoder.decode(value);
-        console.log(chuck);
-
-        if (chuck.includes(':')) {
-          reply += ':<br/>';
-        } else if (
-          chuck.includes('.') &&
-          reply.at(-1)?.match(/\d/) &&
-          !reply.at(-2)
-        ) {
-          reply = reply.slice(0, -1);
-          reply += '<br/>+ ';
-        } else reply += chuck;
-
+        reply += decoder.decode(value);
         if (contentSlideAnimation.current) {
-          contentSlideAnimation.current.innerHTML = `<p class="bg-main/30 p-4 rounded-xl mt-2"> ${reply}</p>`;
+          contentSlideAnimation.current.innerHTML = `<pre class="bg-main/30 p-4 rounded-xl whitespace-pre-wrap ">
+          ${reply}
+          </pre>`;
           if (boxChatContentRef.current) {
             reply.length % 10 == 0 &&
               ScroolToBottom(boxChatContentRef.current, 10);
           }
         }
       }
-      setListUserComments((pre) => [
-        ...pre,
-        {
+
+      //add comment chatbox
+
+      dispatch(
+        handleAddComment({
           id: nanoid(),
           isUser: false,
-          comment: reply,
+          comment: handleCoverComment(reply.trim()),
           time: getTime(),
           isSee: true,
-        },
-      ]);
+        })
+      );
+
       if (boxChatContentRef.current) {
         ScroolToBottom(boxChatContentRef.current, 400);
 
@@ -92,9 +88,21 @@ const ChattingContainer = () => {
           contentSlideAnimation.current.innerHTML = '';
         }
       }
+      setIsLoadding(false);
     },
     onError: async () => {
-      ToastMessage('Lỗi gì đấy vui lòng liên hệ Admin?').error();
+      ToastMessage('Sự cố thật đáng tiếc??').error();
+      setIsLoadding(false);
+      //add comment chatbox when error
+      dispatch(
+        handleAddComment({
+          id: nanoid(),
+          isUser: false,
+          comment: 'Xin lỗi bạn tôi đã không hoàn thành được nhiệm vụ rùi!',
+          time: getTime(),
+          isSee: true,
+        })
+      );
     },
   });
 
@@ -109,11 +117,11 @@ const ChattingContainer = () => {
           listUserComments.map((comment) => (
             <ChatContent {...comment} key={comment.id} />
           ))}
-        <ChatInput
-          loading={mutation.isLoading}
-          mutationQuery={mutation.mutate}
-        />
-        <div ref={contentSlideAnimation}></div>
+        <ChatInput loading={isLoadding} mutationQuery={mutation.mutate} />
+        <div
+          className="whitespace-pre-wrap mt-4"
+          ref={contentSlideAnimation}
+        ></div>
       </section>
     </div>
   );
@@ -127,24 +135,4 @@ function getTime(): string {
     ':' +
     datenew.getMinutes().toString().padStart(2, '0');
   return time;
-}
-{
-  /* chatwit group <div className="flex gap-2 items-center">
-<Image
-  src="/images/avata.jpg"
-  alt="avata"
-  height={40}
-  width={40}
-  className="rounded-full object-cover"
-/>
-<div>
-  <p className="text-base font-semibold">Hoài Nam</p>
-  <p className="font-medium text-sm">09:30</p>
-</div>
-</div>
-<div className="px-3 py-2 bg-menu rounded-lg font-medium text-[0.92rem]">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-Accusantium ut et alias atque harum cupiditate necessitatibus
-provident ullam reiciendis autem.
-</div> */
 }

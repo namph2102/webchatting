@@ -1,9 +1,4 @@
 import './globals.css';
-
-export const metadata = {
-  title: 'Zolo',
-  description: 'Zalo',
-};
 import { Toaster } from 'react-hot-toast';
 export default function RootLayout({
   children,
