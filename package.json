@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.11.0",
@@ -26,6 +27,8 @@
     "eslint-config-next": "13.4.3",
     "eventsource-parser": "^1.0.0",
     "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
+    "g": "^2.0.1",
     "highlight.js": "^11.8.0",
     "jose": "^4.14.4",
     "mongodb": "^5.5.0",
@@ -34,6 +37,9 @@
     "next": "13.4.3",
     "next-auth": "^4.22.1",
     "nextjs-cors": "^2.1.2",
+    "path": "^0.12.7",
+    "peer": "^1.0.0",
+    "peerjs": "^1.4.7",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

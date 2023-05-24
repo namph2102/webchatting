@@ -1,95 +1,88 @@
 'use client';
-import Footer from '@/components/sidebar';
-import Header from '@/components/header';
-import React, { useRef, useState, useEffect } from 'react';
+
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { io } from 'socket.io-client';
-import { cn } from '@/lib/utils';
+import Head from 'next/head';
+import { openSteam, peer, playStream } from './stream.util';
 const socket = io('http://localhost:4000/', { transports: ['websocket'] });
-const colors = ['red', 'green', 'yellow'];
+
 const ChattingLayout = () => {
-  const [content, setContent] = useState<string>();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const chatting = useRef<HTMLInputElement | null>(null);
+  const videoREf = useRef<HTMLVideoElement>(null);
+  const videoREfRemove = useRef<HTMLVideoElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const [listChat, setListChat] = useState<
-    { username: string; text: string }[]
-  >([]);
-  const [listUser, setListUser] = useState<string[]>([]);
+  const [id, setid] = useState<any>(null);
+
   useEffect(() => {
-    // client-side
-    socket.on('connect', () => {
-      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    peer.on('open', (id: string | any) => {
+      videoREf.current?.setAttribute('data-id', id);
+      setid(id);
     });
-    socket.on('disconnect', () => {
-      console.log(socket.id); // undefined
-    });
-    socket.on('disconnect', () => {
-      console.log(socket.id); // undefined
-    });
-    socket.on('sever-send-infomation-accout', (data) => {
-      if (!data.status) {
-        alert(data);
-        return;
-      }
+    peer.on('connection', function (conn) {
+      conn.on('open', function () {
+        // Receive messages
+        conn.on('data', function (data) {
+          console.log('Received', data);
+        });
 
-      setListUser(() => data.listUser);
+        // Send messages
+        conn.send('Hello!');
+      });
     });
-    socket.on('server-chatting-send', (data) => {
-      setListChat((pre) => data);
-      console.log(data);
-    });
-  }, []);
-  const hanleChatting = () => {
-    const message = chatting.current?.value || '';
-    socket.emit('client-chatting', message);
+  }, [id]);
+  const handleSubmitcall = () => {
+    openSteam()
+      .then((stream) => {
+        let call = peer.call(id, stream);
+        console.log(id);
+        call.on('stream', function (remoteStream) {
+          console.log(remoteStream);
+          // Show stream in some video/canvas element.
+          console.log('máy người reply', remoteStream);
+          playStream(videoREf.current, remoteStream);
+        });
+
+        peer.on('call', (call) => {
+          openSteam().then((stream) => {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', function (remoteStream) {
+              // Show stream in some video/canvas element.
+
+              console.log('máy người bấm gọi', remoteStream);
+              playStream(videoREfRemove.current, remoteStream);
+            });
+          });
+        });
+      })
+      .catch((err) => {
+        console.log('Failed to get local stream', err);
+      });
   };
-  const hanleCreateAccount = () => {
-    const account = inputRef.current?.value || '';
-    socket.emit('client-create-account', account);
+  const handlssubmitkey = () => {
+    setid(inputRef.current?.value);
   };
+
   return (
     <>
-      <h1>Đăng ký tài khoảng</h1>
+      <Head>
+        <title>Chatting with me</title>
+      </Head>
 
+      <button onClick={handleSubmitcall} className="py-2 px-4 bg-red-700">
+        callvideo
+      </button>
+      <p>id :{id}</p>
       <input
         ref={inputRef}
         type="text"
-        className="py-2 px-2 text-black"
-        placeholder="Enter your name"
+        placeholder="Enter your key"
+        className="text-black"
       />
-      <input
-        ref={chatting}
-        type="text"
-        className="py-2 px-2 text-black"
-        placeholder="Enter your chatting"
-      />
-      <button
-        onClick={hanleChatting}
-        className="py-2 px-5 rounded-3xl bg-main "
-      >
-        chatting
-      </button>
-      <button
-        onClick={hanleCreateAccount}
-        className="py-2 px-5 rounded-3xl bg-main "
-      >
-        Create User
-      </button>
-      <section className="relative">
-        <div className="w-[300px] h-[200px] bg-pink-200 mt-2">
-          {listChat.map((chat, index) => (
-            <article key={index} className="my-2">
-              <span>{chat.username}</span> : <span>{chat.text}</span>
-            </article>
-          ))}
-        </div>
-        <div className="bg-white text-black  absolute top-0 right-0 w-[300px] py-2 px-2">
-          <h2>Danh sách online</h2>
-          {listUser.map((user, index) => (
-            <p key={index}>{user}</p>
-          ))}
-        </div>
-      </section>
+      <button onClick={handlssubmitkey}>submid id</button>
+      <div className="grid grid-cols-2">
+        <video controls width={300} ref={videoREf}></video>
+        <video controls width={300} ref={videoREfRemove}></video>
+      </div>
     </>
   );
 };
