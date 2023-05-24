@@ -6,12 +6,11 @@ import ChatProvider from './chat/ChatProvider';
 
 import { Metadata } from 'next';
 import Head from 'next/head';
-import { createContext } from 'react';
 
-export const metadata: Metadata = {
-  title: 'Zecky - ứng dụng chatting',
-  description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
-};
+// export const metadata: Metadata = {
+//   title: 'Zecky - ứng dụng chatting',
+//   description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
+// };
 
 export default function Home() {
   return (
@@ -32,7 +31,7 @@ export default function Home() {
       <ChatProvider>
         <main className="flex w-full min-h-screen">
           <Header />
-          <div className="lg:min-w-[300px]  py-6 px-2 bg-aside">
+          <div className="lg:min-w-[300px] min-w-full  py-6 px-2 bg-aside">
             <SideBar />
           </div>
           <ChattingContainer />

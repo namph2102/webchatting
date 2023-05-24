@@ -4,7 +4,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import Head from 'next/head';
 import { openSteam, peer, playStream } from './stream.util';
-const socket = io('http://localhost:4000/', { transports: ['websocket'] });
+import ReCored from './record';
+export const socket = io('http://localhost:4000/', {
+  transports: ['websocket'],
+});
 
 const ChattingLayout = () => {
   const videoREf = useRef<HTMLVideoElement>(null);
@@ -13,6 +16,16 @@ const ChattingLayout = () => {
 
   const [id, setid] = useState<any>(null);
 
+  useEffect(() => {
+    // client-side
+    socket.on('connect', () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on('disconnect', () => {
+      console.log(socket.id); // undefined
+    });
+  }, []);
   useEffect(() => {
     peer.on('open', (id: string | any) => {
       videoREf.current?.setAttribute('data-id', id);
@@ -68,7 +81,7 @@ const ChattingLayout = () => {
         <title>Chatting with me</title>
       </Head>
 
-      <button onClick={handleSubmitcall} className="py-2 px-4 bg-red-700">
+      <button onClick={handleSubmitcall} className="py-2 px-4  bg-red-700">
         callvideo
       </button>
       <p>id :{id}</p>
@@ -82,6 +95,9 @@ const ChattingLayout = () => {
       <div className="grid grid-cols-2">
         <video controls width={300} ref={videoREf}></video>
         <video controls width={300} ref={videoREfRemove}></video>
+      </div>
+      <div>
+        <ReCored />
       </div>
     </>
   );

@@ -6,8 +6,9 @@ import ChatHeader from './ChatHeader';
 import ChatContent, { ChatContentProps } from './ChatContent';
 import { messageType } from './chat.type';
 import { nanoid } from 'nanoid';
-import { ScroolToBottom, ToastMessage } from '@/lib/utils';
+import { ScroolToBottom, ToastMessage, cn } from '@/lib/utils';
 import hljs from 'highlight.js';
+import './chatting.css';
 import {
   CommentReducer,
   handleAddComment,
@@ -76,9 +77,9 @@ const ChattingContainer = () => {
             language: 'javascript',
           }).value;
 
-          contentSlideAnimation.current.innerHTML = `<pre class="bg-[#444] javascript p-4 rounded-xl whitespace-pre-wrap ">
-           <code class="javascript"> ${html}</code>
-            </pre>`;
+          contentSlideAnimation.current.innerHTML = `<p class="bg-[#444] javascript p-4 rounded-xl whitespace-pre-wrap ">
+           <code class="javascript html"> ${html}</code>
+            </p>`;
           if (boxChatContentRef.current) {
             reply.length % 10 == 0 &&
               ScroolToBottom(boxChatContentRef.current, 10);
@@ -115,17 +116,30 @@ const ChattingContainer = () => {
         handleAddComment({
           id: nanoid(),
           isUser: false,
-          comment: 'Xin lỗi bạn! Có lẽ tôi đói rồi bạn cho tôi nghỉ ngơi với!',
+          comment:
+            'Xin lỗi bạn! Có lẽ API Code của tôi đã hết hạn! Bạn có thể bảo Boss của tôi đi gia hạn không| Tôi đang rất cần ạ.',
           time: getTime(),
           isSee: true,
         })
       );
     },
   });
+  const [isOpenDisplayTablet, setIsOpenDisplayTable] = useState<boolean>(
+    window.innerWidth < 990
+  );
 
   return (
-    <div className="p-4 w-full lg:relative fixed inset-0 z-20 bg-bg bg-[url('/theme/theme1.png')]">
-      <ChatHeader />
+    <div
+      className={cn(
+        "p-4 w-full lg:relative  fixed inset-0 z-20 bg-bg bg-[url('/theme/theme1.png')]",
+        isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''
+      )}
+    >
+      <ChatHeader
+        handleCloseChatContent={setIsOpenDisplayTable}
+        _id="rootbat"
+      />
+
       <section
         ref={boxChatContentRef}
         className="chatting px-2  scroll-smooth overflow-y-auto max-h-[calc(100vh-170px)]"
@@ -134,7 +148,9 @@ const ChattingContainer = () => {
           listUserComments.map((comment) => (
             <ChatContent {...comment} key={comment.id} />
           ))}
-        <ChatInput loading={isLoadding} mutationQuery={mutation.mutate} />
+        {isOpenDisplayTablet && (
+          <ChatInput loading={isLoadding} mutationQuery={mutation.mutate} />
+        )}
         <div
           className="whitespace-pre-wrap mt-4"
           ref={contentSlideAnimation}

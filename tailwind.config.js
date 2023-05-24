@@ -41,17 +41,16 @@ module.exports = {
 
     extend: {},
     colors: {
+      ...colors,
       transparent: 'transparent',
       current: 'currentColor',
       main: '#4EAC6D',
       'status-online': '#06d6a0',
-
       menu: '#2E2E2E',
       aside: '#262626',
       bg: '#2A2B2E',
       darklight: '#262626',
       white: '#adb5bd',
-      ...colors,
     },
   },
   plugins: [],

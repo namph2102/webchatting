@@ -1,21 +1,28 @@
 'use client';
-import { cn, deFaultIconSize } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
-import {
-  BiDotsVerticalRounded,
-  BiInfoCircle,
-  BiPhoneCall,
-  BiSearch,
-  BiVideo,
-} from 'react-icons/bi';
-interface ChatHeaderProps {}
-const ChatHeader: FC<ChatHeaderProps> = ({}) => {
+import React, { FC, HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { BiChevronLeft } from 'react-icons/bi';
+import HeaderNavRight from './HeaderNavRight';
+// extends HTMLAttributes<HTMLDivElement>
+interface ChatHeaderProps {
+  _id: string;
+  handleCloseChatContent: (value: any) => void;
+}
+const ChatHeader: FC<ChatHeaderProps> = ({ _id, handleCloseChatContent }) => {
   const [active, setActive] = useState<boolean>(true);
+
+  console.log('lấy id khách: ', _id);
   return (
     <section>
       <div className="flex justify-between mb-2 items-center w-full">
-        <div className="flex gap-5 items-center">
+        <div className="flex sm:gap-5 items-center gap-2">
+          <button
+            onClick={() => handleCloseChatContent((prev: boolean) => !prev)}
+            className="px-1.5 lg:hidden"
+          >
+            <BiChevronLeft fontSize="1.5rem" />
+          </button>
           <div className="relative ">
             <Image
               src="/images/botai.png"
@@ -37,27 +44,11 @@ const ChatHeader: FC<ChatHeaderProps> = ({}) => {
           </div>
         </div>
         <div>
-          <ul className="flex gap-4">
-            <li>
-              <BiSearch fontSize={deFaultIconSize} />
-            </li>
-            <li>
-              <BiPhoneCall fontSize={deFaultIconSize} />
-            </li>
-            <li>
-              <BiVideo fontSize={deFaultIconSize} />
-            </li>
-            <li>
-              <BiInfoCircle fontSize={deFaultIconSize} />
-            </li>
-            <li>
-              <BiDotsVerticalRounded fontSize={deFaultIconSize} />
-            </li>
-          </ul>
+          <HeaderNavRight />
         </div>
       </div>
     </section>
   );
 };
 
-export default ChatHeader;
+export default React.memo(ChatHeader);

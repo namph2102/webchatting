@@ -18,6 +18,7 @@ export default Hello;
 //     console.log('getUserMedia không được hỗ trợ trên trình duyệt này');
 //   }
 // }, []);
+// Nói
 // useEffect(() => {
 //   if (navigator.mediaDevices) {
 //     navigator.mediaDevices
@@ -44,6 +45,8 @@ export default Hello;
 //     console.log('getUserMedia không được hỗ trợ trên trình duyệt này');
 //   }
 // }, []);
+
+// Ghi âm
 // useEffect(() => {
 //   navigator.mediaDevices
 //     .getUserMedia({ audio: true })
