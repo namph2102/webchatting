@@ -11,6 +11,7 @@ import hljs from 'highlight.js';
 import './chatting.css';
 import {
   CommentReducer,
+  HandleCoverStringEntries,
   handleAddComment,
   handleCoverComment,
 } from './chat.utils';
@@ -36,12 +37,12 @@ const ChattingContainer = () => {
   }, []);
   const mutation = useMutation({
     mutationFn: async (message: messageType) => {
-      // add comment
+      // add comment suer chat
       dispatch(
         handleAddComment({
           id: nanoid(),
           isUser: true,
-          comment: message.text.trim(),
+          comment: HandleCoverStringEntries(message.text),
           time: getTime(),
           isSee: true,
         })

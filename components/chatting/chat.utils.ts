@@ -16,10 +16,22 @@ ${item.trim()}
       })
       .join('');
   }
-  console.log(JSON.stringify(newStr));
   return newStr;
 };
-
+export const HandleCoverStringEntries = (str: string) => {
+  str = str.trim();
+  if (str.includes('<')) {
+    str = str.replaceAll('<', '&lt;');
+  }
+  if (str.includes('>')) {
+    str = str.replaceAll('>', '&gt;');
+  }
+  if (str.includes('  ')) {
+    str = str.replaceAll(/\s{2}/g, ' ');
+  }
+  console.log(str);
+  return str;
+};
 // action
 const ADD_COMENT = 'ADD_COMENT';
 const DETELE_COMENT = 'DETELE_COMENT';
