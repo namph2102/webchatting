@@ -33,6 +33,7 @@ const InputElement: FC<InputElementprops> = ({
         type={!isPassword ? 'text' : isShowEye ? 'text' : 'password'}
         id={name}
         name={name}
+        required
         className={cn(
           ' w-full border border-gray-400 outline-none  py-2 px-3 text-slate-900 text-sm rounded-lg',
           isShowError && error ? 'border border-red-500' : ''

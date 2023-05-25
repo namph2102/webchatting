@@ -17,8 +17,13 @@ import SimpleBackdrop from '@/components/Ui/Backdrop';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const aboutController = new AbortController();
+  const signal = aboutController.signal;
   useEffect(() => {
     document.title = ' Đăng ki tại Zecky';
+    return () => {
+      aboutController.abort();
+    };
   }, []);
   const router = useRouter();
   const [isLoading, setIsloading] = useState<Boolean>(false);
@@ -63,13 +68,14 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        signal,
       });
       const newData: { message: string; account: any; status: number } =
         await res.json();
 
       const { status, message = 'Lỗi xử lý !' } = newData;
 
-      if (status == 201) {
+      if (status !== 404) {
         ToastMessage(message || '').success();
 
         const idtimeout = setTimeout(() => {

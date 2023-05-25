@@ -10,12 +10,13 @@ export const handleCoverComment = (str: string) => {
         if (index == 0 || index == list.length - 1) {
           return item.trim();
         }
-        return `<code class="javascript">  ${item.trim()}</code>
-  `;
+        return `
+${item.trim()}     
+`;
       })
       .join('');
   }
-
+  console.log(JSON.stringify(newStr));
   return newStr;
 };
 

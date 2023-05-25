@@ -23,10 +23,10 @@ const SiderBar = () => {
         </div>
       </section>
       <form className="mb-6">
-        <div className="w-full flex h-[40px] p-2  bg-menu rounded-sm">
+        <div className="w-full flex h-[40px] p-2 bg-aside border-[1px]  border-aside-600 rounded-sm shadow-innerrounded-sm">
           <input
             type="text"
-            className="w-full  h-full block text-sm  outline-0 border-none  bg-menu "
+            className="w-full  h-full block text-sm  outline-0 border-none  bg-aside"
             placeholder="Tìm kiếm tại đây ..."
           />
           <button className="w-[20px] h-full text-center">

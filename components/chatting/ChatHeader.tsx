@@ -33,16 +33,29 @@ const ChatHeader: FC<ChatHeaderProps> = ({ _id, handleCloseChatContent }) => {
             />
             <div
               className={cn(
-                'absolute bottom-0 left-7  w-2.5 h-2.5  border-white border-[1px]  rounded-full',
-                active ? ' bg-status-online' : 'bg-red-600'
+                'absolute bottom-0 left-7  w-3 h-3  border-white border-[1px]  rounded-full'
               )}
-            ></div>
+            >
+              <span
+                className={cn(
+                  'animate-ping absolute -left-[2px] -top-[2px] w-3 h-3  inline-flex rounded-full opacity-50',
+                  active ? ' bg-status-online' : 'bg-red-600'
+                )}
+              ></span>
+              <span
+                className={cn(
+                  'absolute inline-flex rounded-full w-2.5 h-2.5',
+                  active ? ' bg-status-online' : 'bg-red-600'
+                )}
+              ></span>
+            </div>
           </div>
           <div>
             <h3 className=" capitalize text-lg font-semibold">ChatBox</h3>
             <p className="text-[12px]">{active ? 'Active' : 'off'}</p>
           </div>
         </div>
+
         <div>
           <HeaderNavRight />
         </div>

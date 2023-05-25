@@ -4,7 +4,6 @@ import SideBar from '@/components/sidebar';
 import Header from '@/components/header';
 import ChatProvider from './chat/ChatProvider';
 
-import { Metadata } from 'next';
 import Head from 'next/head';
 
 // export const metadata: Metadata = {
@@ -28,6 +27,7 @@ export default function Home() {
           content="zecky chatting,zecky đăng nhập,zecky đăng ký, webchat zecky,zecky vietname, ứng dụng chat"
         />
       </Head>
+
       <ChatProvider>
         <main className="flex w-full min-h-screen">
           <Header />

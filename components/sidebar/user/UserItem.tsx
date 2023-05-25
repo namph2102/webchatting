@@ -28,7 +28,7 @@ const UserItem: FC<{ user: IUserItem }> = ({ user }) => {
         </p>
       </div>
       {user.contentWatting && (
-        <span className="inline-block py-0.5 bg-menu px-1 text-sm">
+        <span className="inline-block py-0.5 bg-aside-600 shadow-inner px-1 text-sm">
           {user.contentWatting}
         </span>
       )}

@@ -16,12 +16,18 @@ import Picker from '@emoji-mart/react';
 import { nanoid } from 'nanoid';
 import { messageType } from './chat.type';
 import VoiceSpeed from '../voices';
+import { LoadingDot } from '../loading';
 interface ChatInputProps {
   mutationQuery: (message: messageType) => void;
   loading: boolean;
+  className: string;
 }
 
-const ChatInput: FC<ChatInputProps> = ({ mutationQuery, loading }) => {
+const ChatInput: FC<ChatInputProps> = ({
+  mutationQuery,
+  loading,
+  className,
+}) => {
   const [isOpenEmoji, setIsOpenEmoji] = useState<boolean>(false);
   const chattingRef = useRef<HTMLInputElement>(null);
 
@@ -64,7 +70,8 @@ const ChatInput: FC<ChatInputProps> = ({ mutationQuery, loading }) => {
   return (
     <section
       className={cn(
-        'absolute h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-slate-600'
+        'absolute h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-slate-600',
+        className
       )}
     >
       <div className="flex justify-between gap-4 items-center h-full">
@@ -91,13 +98,18 @@ const ChatInput: FC<ChatInputProps> = ({ mutationQuery, loading }) => {
           </Tooltip>
         </div>
 
-        <div className="w-full  flex-1 h-[50px] p-2  bg-menu rounded-sm">
-          <input
-            ref={chattingRef}
-            type="text"
-            className="w-full  h-full block text-sm  outline-0 border-none  bg-menu flex-1 rounded-lg"
-            placeholder="Lời nhắn ..."
-          />
+        <div className="w-full flex items-center  flex-1 h-[50px] p-2  bg-aside border-aside-600 rounded-sm">
+          {!loading ? (
+            <input
+              ref={chattingRef}
+              type="text"
+              className="w-full  h-full block text-sm  outline-0 border-none  bg-aside flex-1 rounded-lg"
+              placeholder="Lời nhắn ..."
+              maxLength={200}
+            />
+          ) : (
+            <LoadingDot />
+          )}
         </div>
 
         <div className='min-w-[100px] flex justify-around items-center"'>

@@ -16,7 +16,8 @@ const ChatContent: FC<ChatContentProps> = (props) => {
   useEffect(() => {
     hljs.highlightAll();
   }, []);
-  const classname = 'w-[fit-content] rounded-lg font-medium pb-2';
+  const classname =
+    'w-[fit-content] rounded-lg font-medium pb-2 px-2 shadow-inner ';
   return (
     <article
       className={cn(
@@ -33,12 +34,18 @@ const ChatContent: FC<ChatContentProps> = (props) => {
       />
 
       <div className="chat_item-user flex flex-col gap-2">
-        <div className={cn(classname, props.isUser ? 'bg-main/20' : 'bg-menu')}>
+        <div
+          className={cn(
+            classname,
+            props.isUser ? 'bg-main/30' : 'bg-aside-600'
+          )}
+        >
           <pre className="whitespace-pre-wrap ">
             <code
               dangerouslySetInnerHTML={{ __html: props.comment }}
               className="javascript"
             />
+            {/* <code className="javascript">{props.comment}</code> */}
           </pre>
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">

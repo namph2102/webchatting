@@ -24,7 +24,15 @@ const ChattingContainer = () => {
   const controller = new AbortController();
   const signal = controller.signal;
   useEffect(() => {
+    try {
+      if (window?.innerWidth) {
+        setIsOpenDisplayTable(window.innerWidth <= 990);
+      }
+    } catch {}
     hljs.highlightAll();
+    return () => {
+      controller.abort();
+    };
   }, []);
   const mutation = useMutation({
     mutationFn: async (message: messageType) => {
@@ -73,15 +81,13 @@ const ChattingContainer = () => {
         done = doneReading;
         reply += decoder.decode(value);
         if (contentSlideAnimation.current) {
-          let html = hljs.highlight(reply, {
-            language: 'javascript',
-          }).value;
+          let html = hljs.highlightAuto(reply).value;
 
-          contentSlideAnimation.current.innerHTML = `<p class="bg-[#444] javascript p-4 rounded-xl whitespace-pre-wrap ">
-           <code class="javascript html"> ${html}</code>
+          contentSlideAnimation.current.innerHTML = `<p class=" bg-[#444] px-4 py-6 rounded-xl whitespace-pre-wrap ">
+          <code > ${html}</code>
             </p>`;
           if (boxChatContentRef.current) {
-            reply.length % 10 == 0 &&
+            reply.length % 5 == 0 &&
               ScroolToBottom(boxChatContentRef.current, 10);
           }
         }
@@ -117,22 +123,20 @@ const ChattingContainer = () => {
           id: nanoid(),
           isUser: false,
           comment:
-            'Xin lỗi bạn! Có lẽ API Code của tôi đã hết hạn! Bạn có thể bảo Boss của tôi đi gia hạn không| Tôi đang rất cần ạ.',
+            'Xin lỗi bạn! Có lẽ API Code của tôi đã hết hạn! Bạn có thể bảo Boss của tôi đi gia hạn không? Tôi đang rất cần ạ.',
           time: getTime(),
           isSee: true,
         })
       );
     },
   });
-  const [isOpenDisplayTablet, setIsOpenDisplayTable] = useState<boolean>(
-    window.innerWidth < 990
-  );
+  const [isOpenDisplayTablet, setIsOpenDisplayTable] = useState<boolean>(true);
 
   return (
     <div
       className={cn(
-        "p-4 w-full lg:relative  fixed inset-0 z-20 bg-bg bg-[url('/theme/theme1.png')]",
-        isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''
+        "p-4 w-full lg:relative  fixed inset-0 z-20 bg-aside bg-[url('/theme/theme1.png')]",
+        !isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''
       )}
     >
       <ChatHeader
@@ -148,9 +152,13 @@ const ChattingContainer = () => {
           listUserComments.map((comment) => (
             <ChatContent {...comment} key={comment.id} />
           ))}
-        {isOpenDisplayTablet && (
-          <ChatInput loading={isLoadding} mutationQuery={mutation.mutate} />
-        )}
+
+        <ChatInput
+          className={!isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''}
+          loading={isLoadding}
+          mutationQuery={mutation.mutate}
+        />
+
         <div
           className="whitespace-pre-wrap mt-4"
           ref={contentSlideAnimation}
