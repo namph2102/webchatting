@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import { cn, deFaultIconSize } from '@/lib/utils';
 import { componentsProps } from '@/styles';
 import { Tooltip } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   BiCamera,
   BiCurrentLocation,
@@ -59,6 +59,12 @@ import { IconType } from 'react-icons/lib';
 interface ChatInputOptionsMoreProps {}
 const ChatInputOptionsMore: FC<ChatInputOptionsMoreProps> = () => {
   const [iseOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isPageInSwiper, setPageinTWipper] = useState<number>(6);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPageinTWipper(window.innerWidth > 990 ? 6 : 3);
+    }
+  }, []);
   return (
     <>
       <div className="relative">
@@ -88,7 +94,7 @@ const ChatInputOptionsMore: FC<ChatInputOptionsMoreProps> = () => {
           // install Swiper modules
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={50}
-          slidesPerView={window.innerWidth > 990 ? 6 : 3}
+          slidesPerView={isPageInSwiper}
           autoplay
           onSlideChange={() => console.log('slide change')}
         >

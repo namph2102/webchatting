@@ -1,6 +1,8 @@
 import { ToastMessage } from '@/lib/utils';
 import { ChatContentProps } from './ChatContent';
-
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition';
 export const handleCoverComment = (str: string) => {
   let list: string[] = [];
   let newStr = str;
@@ -34,16 +36,17 @@ export const HandleCoverStringEntries = (str: string) => {
   return str;
 };
 
-//Để chuyển đổi lời nói thành văn bản
-let recognition: any;
-if ('webkitSpeechRecognition' in window) {
-  recognition = new webkitSpeechRecognition();
-}
 export const HandleCoverSpeaktoText = (
   setIsOpenVoices: (isOpenMic: any) => void,
   callbackGetString: (textSpeeak: string | boolean) => void
 ) => {
   try {
+    //Để chuyển đổi lời nói thành văn bản
+    let recognition: any;
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition();
+    }
+
     // Kiểm tra xem trình duyệt hỗ trợ Web Speech API
     if (recognition) {
       // Tạo một đối tượng SpeechRecognition để nhận dạng giọng nói
