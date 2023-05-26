@@ -16,14 +16,14 @@ import {
   handleCoverComment,
 } from './chat.utils';
 const initState: ChatContentProps[] = [];
-
+const controller = new AbortController();
+const signal = controller.signal;
 const ChattingContainer = () => {
   const [listUserComments, dispatch] = useReducer(CommentReducer, initState);
   const [isLoadding, setIsLoadding] = useState<boolean>(false);
   const boxChatContentRef = useRef<HTMLElement>(null);
   const contentSlideAnimation = useRef<HTMLDivElement | null>(null);
-  const controller = new AbortController();
-  const signal = controller.signal;
+
   useEffect(() => {
     try {
       if (window?.innerWidth) {
@@ -31,9 +31,6 @@ const ChattingContainer = () => {
       }
     } catch {}
     hljs.highlightAll();
-    return () => {
-      controller.abort();
-    };
   }, []);
   const mutation = useMutation({
     mutationFn: async (message: messageType) => {
@@ -88,8 +85,8 @@ const ChattingContainer = () => {
           <code > ${html}</code>
             </p>`;
           if (boxChatContentRef.current) {
-            reply.length % 5 == 0 &&
-              ScroolToBottom(boxChatContentRef.current, 10);
+            reply.length % 10 == 0 &&
+              ScroolToBottom(boxChatContentRef.current, 2);
           }
         }
       }

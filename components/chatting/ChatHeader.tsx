@@ -12,7 +12,6 @@ interface ChatHeaderProps {
 const ChatHeader: FC<ChatHeaderProps> = ({ _id, handleCloseChatContent }) => {
   const [active, setActive] = useState<boolean>(true);
 
-  console.log('lấy id khách: ', _id);
   return (
     <section className=" px-4 py-2 min-h-[60px] flex items-center  border-main/10 border-b-[2px]  shadow relative z-20 top-1">
       <div className="bg-aside/30 backdrop-blur-sm  absolute inset-0"></div>
