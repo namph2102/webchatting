@@ -1,10 +1,11 @@
 'use client';
-import React, { FC, useRef, useState, useEffect } from 'react';
+import React, { FC, useRef, useState, useEffect, useCallback } from 'react';
 
 import {
   BiDotsHorizontalRounded,
   BiLoaderCircle,
   BiMicrophone,
+  BiMicrophoneOff,
   BiSend,
   BiSmile,
 } from 'react-icons/bi';
@@ -17,6 +18,8 @@ import { nanoid } from 'nanoid';
 import { messageType } from './chat.type';
 import VoiceSpeed from '../voices';
 import { LoadingDot } from '../loading';
+import { HandleCoverSpeaktoText } from './chat.utils';
+import { ChatInputOptionsMore } from '../UIchatting';
 interface ChatInputProps {
   mutationQuery: (message: messageType) => void;
   loading: boolean;
@@ -29,6 +32,8 @@ const ChatInput: FC<ChatInputProps> = ({
   className,
 }) => {
   const [isOpenEmoji, setIsOpenEmoji] = useState<boolean>(false);
+  const [isOpenEVoices, setIsOpenVoices] = useState<boolean>(false);
+
   const chattingRef = useRef<HTMLInputElement>(null);
 
   const handdleSelect = (emo: { native: string }) => {
@@ -67,25 +72,25 @@ const ChatInput: FC<ChatInputProps> = ({
       document.removeEventListener('keydown', handleChattingEnter);
     };
   }, [loading]);
+  const callbackText = useCallback((str: any) => {
+    setIsOpenVoices((pre) => !pre);
+    if (str && chattingRef.current) {
+      chattingRef.current.value = str;
+    }
+    setIsOpenVoices(false);
+  }, []);
   return (
     <section
       className={cn(
-        'absolute h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-slate-600',
+        'absolute bg-aside-600 h-24 bottom-0 left-0 right-0 px-4 pt-1 pb-4 border-t-[1px] border-slate-600',
         className
       )}
     >
       <div className="flex justify-between gap-4 items-center h-full">
         <div className="min-w-[80px] flex justify-around items-center">
-          <Tooltip
-            title="More"
-            componentsProps={componentsProps}
-            arrow
-            placement="top"
-          >
-            <button>
-              <BiDotsHorizontalRounded fontSize={deFaultIconSize} />
-            </button>
-          </Tooltip>
+          {/* Button More Chatinput */}
+          <ChatInputOptionsMore />
+          {/* end Button More Chatinput */}
           <Tooltip
             title="Emoji"
             componentsProps={componentsProps}
@@ -114,13 +119,24 @@ const ChatInput: FC<ChatInputProps> = ({
 
         <div className='min-w-[100px] flex justify-around items-center"'>
           <Tooltip
-            title="Vioces"
+            title={isOpenEVoices ? 'Tắt Vocies' : 'Mở Voices'}
             componentsProps={componentsProps}
             arrow
             placement="top"
+            onClick={() => {
+              if (chattingRef.current) {
+                chattingRef.current.value = '';
+              }
+              setIsOpenVoices(true);
+              HandleCoverSpeaktoText(setIsOpenVoices, callbackText);
+            }}
           >
             <button>
-              <BiMicrophone fontSize={deFaultIconSize} />
+              {isOpenEVoices ? (
+                <BiMicrophone fontSize={deFaultIconSize} />
+              ) : (
+                <BiMicrophoneOff fontSize={deFaultIconSize} />
+              )}
             </button>
           </Tooltip>
 

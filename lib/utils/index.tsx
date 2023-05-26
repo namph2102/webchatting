@@ -19,7 +19,6 @@ export function ScroolToBottom(element: HTMLElement, time: number = 1000) {
 
 export const ToastMessage = (message = '', icon?: string) => {
   const options: any = {};
-  console.log(message);
   if (icon) options.icon = icon;
   return {
     normal(suboptions?: object) {

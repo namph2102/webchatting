@@ -84,7 +84,7 @@ const ChattingContainer = () => {
         if (contentSlideAnimation.current) {
           let html = hljs.highlightAuto(reply).value;
 
-          contentSlideAnimation.current.innerHTML = `<p class=" bg-[#444] px-4 py-6 rounded-xl whitespace-pre-wrap ">
+          contentSlideAnimation.current.innerHTML = `<p class=" bg-black  px-4 py-6 rounded-xl whitespace-pre-wrap ">
           <code > ${html}</code>
             </p>`;
           if (boxChatContentRef.current) {
@@ -116,7 +116,7 @@ const ChattingContainer = () => {
       setIsLoadding(false);
     },
     onError: async () => {
-      ToastMessage('Sự cố thật đáng tiếc??').error();
+      ToastMessage('Đường truyền không ổn định. Bạn thử lại nhé?').error();
       setIsLoadding(false);
       //add comment chatbox when error
       dispatch(
@@ -136,7 +136,7 @@ const ChattingContainer = () => {
   return (
     <div
       className={cn(
-        "p-4 w-full lg:relative  fixed inset-0 z-20 bg-aside bg-[url('/theme/theme1.png')]",
+        "w-full lg:relative  fixed inset-0 z-20 bg-aside bg-[url('/theme/theme1.png')]",
         !isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''
       )}
     >
@@ -147,24 +147,23 @@ const ChattingContainer = () => {
 
       <section
         ref={boxChatContentRef}
-        className="chatting px-2  scroll-smooth overflow-y-auto max-h-[calc(100vh-170px)]"
+        className="chatting px-2 absolute top-0 left-0 right-0 scroll-smooth overflow-y-auto pt-14 max-h-[calc(100vh-100px)]"
       >
         {listUserComments.length > 0 &&
           listUserComments.map((comment) => (
             <ChatContent {...comment} key={comment.id} />
           ))}
 
-        <ChatInput
-          className={!isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''}
-          loading={isLoadding}
-          mutationQuery={mutation.mutate}
-        />
-
         <div
           className="whitespace-pre-wrap mt-4"
           ref={contentSlideAnimation}
         ></div>
       </section>
+      <ChatInput
+        className={!isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''}
+        loading={isLoadding}
+        mutationQuery={mutation.mutate}
+      />
     </div>
   );
 };

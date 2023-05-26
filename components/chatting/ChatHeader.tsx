@@ -14,8 +14,9 @@ const ChatHeader: FC<ChatHeaderProps> = ({ _id, handleCloseChatContent }) => {
 
   console.log('lấy id khách: ', _id);
   return (
-    <section>
-      <div className="flex justify-between mb-2 items-center w-full">
+    <section className=" px-4 py-2 min-h-[60px] flex items-center  border-main/10 border-b-[2px]  shadow relative z-20 top-1">
+      <div className="bg-aside/30 backdrop-blur-sm  absolute inset-0"></div>
+      <div className="flex opacity-7 absolute top-0 left-0 px-4 py-auto right-0 z-10 justify-between items-center w-full">
         <div className="flex sm:gap-5 items-center gap-2">
           <button
             onClick={() => handleCloseChatContent((prev: boolean) => !prev)}
