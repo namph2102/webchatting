@@ -1,8 +1,5 @@
 import { ToastMessage } from '@/lib/utils';
 import { ChatContentProps } from './ChatContent';
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from 'react-speech-recognition';
 export const handleCoverComment = (str: string) => {
   let list: string[] = [];
   let newStr = str;
