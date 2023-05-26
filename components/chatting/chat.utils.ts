@@ -1,22 +1,25 @@
 import { ToastMessage } from '@/lib/utils';
 import { ChatContentProps } from './ChatContent';
 export const handleCoverComment = (str: string) => {
-  let list: string[] = [];
-  let newStr = str;
+  //   let list: string[] = [];
+  //   let newStr = str;
+  //   if (str.includes('```')) {
+  //     list = str.split('```');
+  //     newStr = list
+  //       .map((item, index) => {
+  //         if (index == 0 || index == list.length - 1) {
+  //           return item.trim();
+  //         }
+  //         return `
+  // ${item.trim()}
+  // `;
+  //       })
+  //       .join('');
+  //   }
   if (str.includes('```')) {
-    list = str.split('```');
-    newStr = list
-      .map((item, index) => {
-        if (index == 0 || index == list.length - 1) {
-          return item.trim();
-        }
-        return `
-${item.trim()}     
-`;
-      })
-      .join('');
+    str = str.replaceAll('```', '');
   }
-  return newStr;
+  return str;
 };
 export const HandleCoverStringEntries = (str: string) => {
   str = str.trim();

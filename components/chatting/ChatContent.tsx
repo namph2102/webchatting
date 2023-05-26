@@ -41,11 +41,11 @@ const ChatContent: FC<ChatContentProps> = (props) => {
           )}
         >
           <pre className="whitespace-pre-wrap ">
-            <code
+            {/* <code
               dangerouslySetInnerHTML={{ __html: props.comment }}
               className="javascript"
-            />
-            {/* <code className="javascript">{props.comment}</code> */}
+            /> */}
+            <code className="javascript">{props.comment}</code>
           </pre>
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">

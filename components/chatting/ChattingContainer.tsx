@@ -79,6 +79,7 @@ const ChattingContainer = () => {
         done = doneReading;
         reply += decoder.decode(value);
         if (contentSlideAnimation.current) {
+          reply = handleCoverComment(reply);
           let html = hljs.highlightAuto(reply).value;
 
           contentSlideAnimation.current.innerHTML = `<p class=" bg-black  px-4 py-6 rounded-xl whitespace-pre-wrap ">
