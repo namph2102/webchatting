@@ -51,7 +51,7 @@ module.exports = {
       bg: '#2A2B2E',
       darklight: '#262626',
       white: '#adb5bd',
-      text: "#adb5bd'",
+      text: '#adb5bd',
       aside: '#262626',
       'aside-600': '#2E2E2E',
     },

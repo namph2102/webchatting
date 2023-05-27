@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import { cn, deFaultIconSize } from '@/lib/utils';
 import { componentsProps } from '@/styles';
 import { Tooltip } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
   BiCamera,
   BiCurrentLocation,
@@ -60,10 +60,35 @@ interface ChatInputOptionsMoreProps {}
 const ChatInputOptionsMore: FC<ChatInputOptionsMoreProps> = () => {
   const [iseOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isPageInSwiper, setPageinTWipper] = useState<number>(6);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setPageinTWipper(window.innerWidth > 990 ? 6 : 3);
+  const handleResize = useCallback(() => {
+    const windowWidht = window.innerWidth;
+    switch (true) {
+      case windowWidht > 1300:
+        setPageinTWipper(6);
+        break;
+      case windowWidht > 1000:
+        setPageinTWipper(4);
+        break;
+      case windowWidht > 900:
+        setPageinTWipper(6);
+        break;
+      case windowWidht > 600:
+        setPageinTWipper(4);
+        break;
+      default:
+        setPageinTWipper(3);
+        break;
     }
+  }, [isPageInSwiper]);
+  useEffect(() => {
+    handleResize();
+    if (typeof window !== 'undefined') {
+      // setPageinTWipper(window.innerWidth > 1200 ? 6 : 3);
+      window.addEventListener('resize', handleResize);
+    }
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
   return (
     <>

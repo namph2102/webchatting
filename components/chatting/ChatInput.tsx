@@ -16,9 +16,8 @@ import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 import { nanoid } from 'nanoid';
 import { messageType } from './chat.type';
-import VoiceSpeed from '../voices';
 import { LoadingDot } from '../loading';
-import { HandleCoverSpeaktoText } from './chat.utils';
+import { CallVoices, HandleCoverSpeaktoText } from '../webmedia';
 import { ChatInputOptionsMore } from '../UIchatting';
 interface ChatInputProps {
   mutationQuery: (message: messageType) => void;
@@ -50,7 +49,7 @@ const ChatInput: FC<ChatInputProps> = ({
         text: chattingRef.current.value.trim(),
       };
       // add message to api
-      if (!chattingRef.current.value) {
+      if (!chattingRef.current.value.trim()) {
         return;
       }
       mutationQuery(messages);

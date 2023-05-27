@@ -5,12 +5,13 @@ import Header from '@/components/header';
 import ChatProvider from './chat/ChatProvider';
 
 import Head from 'next/head';
+import { Metadata } from 'next';
 
-// export const metadata: Metadata = {
-//   title: 'Zecky - ứng dụng chatting',
-//   description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
-// };
-
+export const metadata: Metadata = {
+  title: 'Zecky - ứng dụng chatting',
+  description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
+};
+export const dynamic = 'static';
 export default function Home() {
   return (
     <div className="container mx-auto">
@@ -22,6 +23,7 @@ export default function Home() {
           name="description"
           content="Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !"
         />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
         <meta
           name="keywords"
           content="zecky chatting,zecky đăng nhập,zecky đăng ký, webchat zecky,zecky vietname, ứng dụng chat"

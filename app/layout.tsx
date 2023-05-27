@@ -1,7 +1,15 @@
 import './globals.css';
 
 import { Toaster } from 'react-hot-toast';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Zecky - ứng dụng chatting',
+  description: 'Hãy cùng khám phá ứng dụng Zecky tuyệt vời này !',
+  keywords:
+    'zecky chatting,zecky đăng nhập,zecky đăng ký, webchat zecky,zecky vietname, ứng dụng chat',
+  creator: 'Phạm Hoài Nam',
+  assets: '/',
+};
 export default function RootLayout({
   children,
 }: {

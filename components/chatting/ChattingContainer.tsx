@@ -8,6 +8,10 @@ import { messageType } from './chat.type';
 import { nanoid } from 'nanoid';
 import { ScroolToBottom, ToastMessage, cn } from '@/lib/utils';
 import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('xml', xml);
 import './chatting.css';
 import {
   CommentReducer,
@@ -22,7 +26,7 @@ const ChattingContainer = () => {
   const [listUserComments, dispatch] = useReducer(CommentReducer, initState);
   const [isLoadding, setIsLoadding] = useState<boolean>(false);
   const boxChatContentRef = useRef<HTMLElement>(null);
-  const contentSlideAnimation = useRef<HTMLDivElement | null>(null);
+  const contentSlideAnimation = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -30,7 +34,10 @@ const ChattingContainer = () => {
         setIsOpenDisplayTable(window.innerWidth <= 990);
       }
     } catch {}
-    hljs.highlightAll();
+
+    if (contentSlideAnimation.current) {
+      hljs.highlightBlock(contentSlideAnimation.current);
+    }
   }, []);
   const mutation = useMutation({
     mutationFn: async (message: messageType) => {
@@ -39,7 +46,7 @@ const ChattingContainer = () => {
         handleAddComment({
           id: nanoid(),
           isUser: true,
-          comment: HandleCoverStringEntries(message.text),
+          comment: message.text.trim(),
           time: getTime(),
           isSee: true,
         })
@@ -73,32 +80,32 @@ const ChattingContainer = () => {
 
       let done = false;
       let reply = '';
-
+      const classNameConfig = 'bg-black/80 py-4 px-2 round-sm';
       while (!done) {
         const { value, done: doneReading } = await render.read();
         done = doneReading;
         reply += decoder.decode(value);
         if (contentSlideAnimation.current) {
           reply = handleCoverComment(reply);
-          let html = hljs.highlightAuto(reply).value;
+          contentSlideAnimation.current.textContent = reply;
 
-          contentSlideAnimation.current.innerHTML = `<p class=" bg-black  px-4 py-6 rounded-xl whitespace-pre-wrap ">
-          <code > ${html}</code>
-            </p>`;
           if (boxChatContentRef.current) {
             reply.length % 10 == 0 &&
               ScroolToBottom(boxChatContentRef.current, 2);
           }
         }
       }
+      // const regex = /https?:\/\/[^\s]+/g;
+      // const links = [...(reply.match(regex) || [])] || [];
 
-      //add comment chatbox
+      // console.log(links);
 
+      let html = hljs.highlightAuto(reply).value;
       dispatch(
         handleAddComment({
           id: nanoid(),
           isUser: false,
-          comment: handleCoverComment(reply.trim()),
+          comment: html,
           time: getTime(),
           isSee: true,
         })
@@ -152,10 +159,11 @@ const ChattingContainer = () => {
             <ChatContent {...comment} key={comment.id} />
           ))}
 
-        <div
-          className="whitespace-pre-wrap mt-4"
-          ref={contentSlideAnimation}
-        ></div>
+        <div className="whitespace-pre-wrap mt-4">
+          <p className="rounded-xl whitespace-pre-wrap px-3">
+            <code className="javascript" ref={contentSlideAnimation}></code>
+          </p>
+        </div>
       </section>
       <ChatInput
         className={!isOpenDisplayTablet ? 'hidden_toggle-mobile' : ''}

@@ -8,7 +8,7 @@ const ModelProvider: FC<ModelProviderProps> = ({ children }) => {
   return (
     <div
       onClick={() => setIsOpenModel(!isOpenModel)}
-      className={`fixed text-[#fff] inset-0 bg-black/70 flex justify-center z-50 items-center ${
+      className={`fixed modal_container text-[#fff] inset-0 bg-black/70 flex justify-center z-50 items-center ${
         isOpenModel ? 'block' : 'hidden'
       }`}
     >

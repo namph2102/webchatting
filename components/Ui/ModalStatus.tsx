@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import ModelProvider from './ModelProvider';
 import { BsXCircle, BsXLg } from 'react-icons/bs';
-import { deFaultIconSize } from '@/lib/utils';
+import { deFaultIconSize, handleStopPropagation } from '@/lib/utils';
 interface ModalStatusProps {
   callBackStatus: (isSucess: boolean) => void;
 }
@@ -9,7 +9,7 @@ const ModalStatus: FC<ModalStatusProps> = ({ callBackStatus }) => {
   return (
     <ModelProvider>
       <article
-        onClick={(e) => e.stopPropagation()}
+        onClick={handleStopPropagation}
         className="relative text-[#ffff] bg-[#131720] rounded-lg shadow dark:bg-gray-700"
       >
         <button

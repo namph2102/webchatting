@@ -33,4 +33,8 @@ export const ToastMessage = (message = '', icon?: string) => {
   };
 };
 
+export function handleStopPropagation<T extends React.MouseEvent>(e: T): any {
+  return e.stopPropagation();
+}
+
 export const deFaultIconSize = '1.5rem';

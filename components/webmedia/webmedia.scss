@@ -1,0 +1,21 @@
+.sunshine-effect {
+  transition: box-shadow 0.3s ease;
+}
+
+.sunshine-effect:hover {
+  box-shadow: 0 0 10px 5px gray;
+}
+
+.sunshine_call-effect {
+  animation: sunshine_call-effect 0.6s ease-in-out infinite;
+  box-shadow: 0 0 1px 1px rgb(223, 27, 27);
+}
+
+@keyframes sunshine_call-effect {
+  from {
+    box-shadow: 0 0 1px 2px rgb(175, 8, 8);
+  }
+  to {
+    box-shadow: 0 0 10px 6px rgb(230, 37, 37);
+  }
+}

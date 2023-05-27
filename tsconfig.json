@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/server/route.js", "lib/database/conectMongoose.js", "lib/models/userModel.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/server/route.js", "lib/database/conectMongoose.js", "lib/models/userModel.js", "components/webmedia/Voice.utils.js"],
   "exclude": ["node_modules"]
 }

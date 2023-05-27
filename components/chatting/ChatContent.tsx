@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils';
 import { componentsProps } from '@/styles';
 import { Tooltip } from '@mui/material';
 import Image from 'next/image';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { BiCheckDouble } from 'react-icons/bi';
-import hljs from 'highlight.js';
+import './chating.scss';
 export interface ChatContentProps {
   id: string;
   isUser: boolean;
@@ -13,9 +13,8 @@ export interface ChatContentProps {
   isSee?: boolean;
 }
 const ChatContent: FC<ChatContentProps> = (props) => {
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
+  useEffect(() => {}, []);
+  const codeRef = useRef<HTMLElement>(null);
   const classname =
     'w-[fit-content] rounded-lg font-medium pb-2 px-2 shadow-inner ';
   return (
@@ -26,7 +25,7 @@ const ChatContent: FC<ChatContentProps> = (props) => {
       )}
     >
       <Image
-        src="/images/avata.jpg"
+        src={props.isUser ? '/images/avata.jpg' : '/images/botai.png'}
         alt="avata"
         height={40}
         width={40}
@@ -40,12 +39,14 @@ const ChatContent: FC<ChatContentProps> = (props) => {
             props.isUser ? 'bg-main/30' : 'bg-aside-600'
           )}
         >
-          <pre className="whitespace-pre-wrap ">
-            {/* <code
-              dangerouslySetInnerHTML={{ __html: props.comment }}
+          <pre className="whitespace-pre-wrap">
+            <code
               className="javascript"
-            /> */}
-            <code className="javascript">{props.comment}</code>
+              dangerouslySetInnerHTML={{ __html: props.comment }}
+              ref={codeRef}
+            ></code>
+
+            {/* <code className="javascript">{props.comment}</code> */}
           </pre>
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">
