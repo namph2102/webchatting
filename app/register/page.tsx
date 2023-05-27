@@ -14,13 +14,14 @@ import {
 import axios from 'axios';
 import { ToastMessage } from '@/lib/utils';
 import SimpleBackdrop from '@/components/Ui/Backdrop';
+
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const aboutController = new AbortController();
   const signal = aboutController.signal;
   useEffect(() => {
-    document.title = ' Đăng ki tại Zecky';
+    document.title = 'Đăng ký tại Zecky';
     return () => {
       aboutController.abort();
     };
@@ -74,14 +75,18 @@ const Login = () => {
         await res.json();
 
       const { status, message = 'Lỗi xử lý !' } = newData;
-
-      if (status !== 404) {
+      console.log(newData);
+      if (status != 404) {
         ToastMessage(message || '').success();
 
         const idtimeout = setTimeout(() => {
-          router.push('');
+          if (status === 201) {
+            router.push('');
+          } else {
+            ToastMessage('Lỗi Đăng ký bạn vui lòng nhập lại').error();
+          }
           clearTimeout(idtimeout);
-        }, 400);
+        }, 2000);
         formik.resetForm();
       } else {
         ToastMessage(message || '').error();

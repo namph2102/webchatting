@@ -111,7 +111,7 @@ const ChatInputOptionsMore: FC<ChatInputOptionsMoreProps> = () => {
       </div>
       <section
         className={cn(
-          'absolute bottom-24 left-0 right-0 w-full  bg-main/20 px-10 py-3',
+          'absolute bottom-24 left-0 right-0 w-full  bg-main/30 px-10 py-3',
           iseOpenMenu ? '' : 'hidden'
         )}
       >
@@ -128,7 +128,7 @@ const ChatInputOptionsMore: FC<ChatInputOptionsMoreProps> = () => {
             return (
               <SwiperSlide key={icon.id}>
                 <div className="flex flex-col justify-center items-center gap-y-2">
-                  <button className="bg-main/10  rounded-full w-10 h-10 flex justify-center items-center">
+                  <button className="bg-main/20  rounded-full w-10 h-10 flex justify-center items-center">
                     <IconJSX className="text-main" fontSize={deFaultIconSize} />
                   </button>
                   <p>{icon.title}</p>

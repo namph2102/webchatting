@@ -39,15 +39,15 @@ const ChatContent: FC<ChatContentProps> = (props) => {
             props.isUser ? 'bg-main/30' : 'bg-aside-600'
           )}
         >
-          <pre className="whitespace-pre-wrap">
+          <p className="whitespace-pre-wrap">
             <code
-              className="javascript"
+              className="javascript whitespace-pre-wrap w-fit indent-4"
               dangerouslySetInnerHTML={{ __html: props.comment }}
               ref={codeRef}
             ></code>
 
             {/* <code className="javascript">{props.comment}</code> */}
-          </pre>
+          </p>
 
           <small className="flex gap-1 items-end font-semibold text-[0.875em] pl-1 mt-1">
             {props.isSee && (

@@ -9,6 +9,14 @@ export const metadata: Metadata = {
     'zecky chatting,zecky đăng nhập,zecky đăng ký, webchat zecky,zecky vietname, ứng dụng chat',
   creator: 'Phạm Hoài Nam',
   assets: '/',
+
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'de-DE': '/de-DE',
+    },
+  },
 };
 export default function RootLayout({
   children,
@@ -16,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body suppressHydrationWarning={true} className="bg-bg text-white ">
         <div className="main"> {children}</div>
 

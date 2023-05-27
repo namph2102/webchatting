@@ -1,27 +1,29 @@
+import { AccountContext } from '@/app/page';
 import { componentsProps } from '@/styles';
 import { Tooltip } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { BiCog, BiLock, BiLogOutCircle, BiUserCircle } from 'react-icons/bi';
+
 interface ProfileProps {}
 const Profile: FC<ProfileProps> = ({}) => {
+  const { account } = useContext(AccountContext);
   return (
     <div
       id="userDropdown"
-      className="z-10 absolute   -top-[250px] lg:left-0  -left-[150px] bg-menu text-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+      className="z-10 absolute  text-white  -top-[250px] lg:left-0  -left-[150px] bg-menu  rounded-lg shadow w-48 "
     >
-      <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-        <div>Bonnie Green</div>
-        <div className="font-medium truncate">name@flowbite.com</div>
+      <div className="px-4 py-3 text-sm border-b-[1px] border-main/60">
+        <div className="capitalize truncate">Tên: {account.fullname}</div>
+        <div className="font-medium truncate">
+          Tài khoản: {account.username}
+        </div>
       </div>
-      <ul
-        className="py-2 text-sm text-gray-700 dark:text-gray-200"
-        aria-labelledby="avatarButton"
-      >
+      <ul className="py-2 text-sm " aria-labelledby="avatarButton">
         <li>
           <a
             href="#"
-            className="flex justify-between px-4 py-2 text-sm hover:bg-aside/900"
+            className="flex justify-between  px-4 py-2 text-sm hover:bg-aside/30"
           >
             Thông tin <BiUserCircle fontSize="1rem" />
           </a>
@@ -29,7 +31,7 @@ const Profile: FC<ProfileProps> = ({}) => {
         <li>
           <a
             href="#"
-            className="flex justify-between px-4 py-2 text-sm hover:bg-aside/900"
+            className="flex justify-between  px-4 py-2 text-sm hover:bg-aside/30"
           >
             Cài đặt <BiCog fontSize="1rem" />
           </a>
@@ -37,16 +39,16 @@ const Profile: FC<ProfileProps> = ({}) => {
         <li>
           <a
             href="#"
-            className="flex justify-between px-4 py-2 text-sm hover:bg-aside/900"
+            className="flex justify-between  px-4 py-2 text-sm hover:bg-aside/30"
           >
             Đổi mật khẩu <BiLock fontSize="1rem" />
           </a>
         </li>
       </ul>
-      <div className="py-1">
+      <div className="py-1 border-t-[1px] border-main/60">
         <a
           href="#"
-          className="flex justify-between px-4 py-2 text-sm hover:bg-aside/900"
+          className="flex justify-between  px-4 py-2 text-sm hover:bg-aside/30"
         >
           Đăng xuất <BiLogOutCircle fontSize="1rem" />
         </a>

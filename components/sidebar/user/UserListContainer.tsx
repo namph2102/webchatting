@@ -12,7 +12,7 @@ const UserListContainer: FC<UserListProps> = ({ title, listUser }) => {
     <div>
       <h3 className="my-4  font-bold text-[12px] text-white">{title}</h3>
       {listUser.length > 0 &&
-        listUser.map((user) => <UserItem key={user.id} user={user} />)}
+        listUser.map((user) => <UserItem key={user._id} user={user} />)}
     </div>
   );
 };

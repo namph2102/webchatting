@@ -1,6 +1,6 @@
 'use client';
 import { cn, deFaultIconSize } from '@/lib/utils';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsMenuUp, BsRobot } from 'react-icons/bs';
 import {
   BiUserCircle,
@@ -22,6 +22,7 @@ import { Tooltip } from '@mui/material';
 import { componentsProps } from '@/styles';
 import Profile from './Profile';
 import { MenuItem } from './MenuItem';
+import { AccountContext } from '@/app/page';
 
 const listMenu = [
   {
@@ -62,6 +63,7 @@ const listMenu = [
 const Header = () => {
   const [currentMenu, setCurrentMenu] = useState<String>(listMenu[0].title);
   const [isOpenProfile, setIsOpenProfile] = useState<boolean>(false);
+  const { account } = useContext(AccountContext);
   useEffect(() => {
     const handleHideDrowProfile = () => {
       setIsOpenProfile(false);
@@ -103,10 +105,10 @@ const Header = () => {
                   onClick={() => {
                     setIsOpenProfile(!isOpenProfile);
                   }}
-                  src="/images/avata.jpg"
+                  src={account.avatar}
                   width="30"
                   height="30"
-                  alt="Avata"
+                  alt="Avatar"
                   className="rounded-full object-cover"
                   id="avatarButton"
                   data-dropdown-toggle="userDropdown"

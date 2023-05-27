@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/server/route.js", "lib/database/conectMongoose.js", "lib/models/userModel.js", "components/webmedia/Voice.utils.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/server/route.js", "lib/database/conectMongoose.js", "lib/models/userModel.js", "components/webmedia/Voice.utils.js", "components/provider/index.ts"],
   "exclude": ["node_modules"]
 }

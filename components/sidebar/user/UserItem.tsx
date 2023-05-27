@@ -6,7 +6,10 @@ import { cn } from '@/lib/utils';
 
 const UserItem: FC<{ user: IUserItem }> = ({ user }) => {
   return (
-    <div className="flex justify-between mb-2 items-center ">
+    <div
+      className="flex justify-between mb-2 items-center cursor-pointer"
+      title={`${user.fullname}`}
+    >
       <div className="flex gap-5 items-center">
         <div className="relative ">
           <Image

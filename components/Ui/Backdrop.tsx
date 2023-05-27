@@ -3,16 +3,18 @@ import Backdrop from '@mui/material/Backdrop';
 import { BiLoader } from 'react-icons/bi';
 interface SimpleBackdropProps {
   ishandleTouchClose?: boolean;
+  className?: string;
 }
 const SimpleBackdrop: FC<SimpleBackdropProps> = ({
   ishandleTouchClose = false,
+  className = '',
 }) => {
   const [open, setOpen] = useState<any>(true);
   const handleClose = () => {
     ishandleTouchClose && setOpen(false);
   };
   return (
-    <div>
+    <div className={className || ''}>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}

@@ -37,6 +37,9 @@ const ChattingContainer = () => {
 
     if (contentSlideAnimation.current) {
       hljs.highlightBlock(contentSlideAnimation.current);
+      document.addEventListener('DOMContentLoaded', (event) => {
+        hljs.highlightAll();
+      });
     }
   }, []);
   const mutation = useMutation({
@@ -80,7 +83,7 @@ const ChattingContainer = () => {
 
       let done = false;
       let reply = '';
-      const classNameConfig = 'bg-black/80 py-4 px-2 round-sm';
+
       while (!done) {
         const { value, done: doneReading } = await render.read();
         done = doneReading;
@@ -147,7 +150,7 @@ const ChattingContainer = () => {
     >
       <ChatHeader
         handleCloseChatContent={setIsOpenDisplayTable}
-        _id="rootbat"
+        _id="chatwithbotai"
       />
 
       <section
@@ -161,7 +164,10 @@ const ChattingContainer = () => {
 
         <div className="whitespace-pre-wrap mt-4">
           <p className="rounded-xl whitespace-pre-wrap px-3">
-            <code className="javascript" ref={contentSlideAnimation}></code>
+            <code
+              className="language-javascript"
+              ref={contentSlideAnimation}
+            ></code>
           </p>
         </div>
       </section>

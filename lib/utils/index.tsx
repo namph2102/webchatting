@@ -36,5 +36,21 @@ export const ToastMessage = (message = '', icon?: string) => {
 export function handleStopPropagation<T extends React.MouseEvent>(e: T): any {
   return e.stopPropagation();
 }
+export function Debounced(callback: () => void, delay: number) {
+  delay = delay || 0;
+  let timeId: any;
+
+  return () => {
+    console.log('time  previos at', timeId);
+    if (timeId) {
+      clearTimeout(timeId);
+      timeId = null;
+    }
+    timeId = setTimeout(() => {
+      callback();
+      clearTimeout(timeId);
+    }, delay);
+  };
+}
 
 export const deFaultIconSize = '1.5rem';

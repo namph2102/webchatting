@@ -3,8 +3,6 @@ export interface IUserItem {
   fullname: string;
   contentWatting?: number;
   avata: string;
+  _id: string | number;
 }
-export interface IListUserComment extends IUserItem {
-    id: string;
- }
-
+export interface IListUserComment extends IUserItem {}

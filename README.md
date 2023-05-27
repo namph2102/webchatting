@@ -1,7 +1,7 @@
 # Webchat with NextJS, Socket.io
 ## Getting Started
-
-First, run the development server:
+### Project start (20/05/2023)
+First, run the development server :
 
 ```bash
 npm run dev
